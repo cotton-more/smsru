@@ -45,18 +45,23 @@ var Smsru = (function () {
         var _authType = defaultAuthType;
         var _test = 0;
 
-        if (param === Object(param)) {
-            for (var key in param) {
-                if (param.hasOwnProperty(key)) {
-                    _param[ key ] = param[key];
+        switch (typeof param) {
+            case 'object':
+                for (var key in param) {
+                    if (param.hasOwnProperty(key)) {
+                        _param[ key ] = param[key];
+                    }
                 }
-            }
-        } else {
-            try {
-                _param = require(path.resolve(param));
-            } catch (e) {
+                break;
+            case 'string':
+                try {
+                    _param = require(path.resolve(param));
+                } catch (e) {
+                    _param = {};
+                }
+                break;
+            default:
                 _param = {};
-            }
         }
 
         this.param = function (key) {

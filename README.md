@@ -6,8 +6,16 @@ The best project ever.
 Install the module with: `npm install smsru`
 
 ```javascript
-var smsru = require('smsru');
-smsru.awesome(); // "awesome"
+var Smsru = require('smsru');
+var smsru = new Smsru();
+
+smsru.send('text', 'recipient', function (error, body) {
+    var data;
+
+    if (null !== error) {
+        data = body.split("\n");
+    }
+});
 ```
 
 ## Documentation
