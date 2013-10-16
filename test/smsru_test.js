@@ -69,11 +69,10 @@ exports['url for test'] = {
 exports['testing constructor'] = {
     'no args': function (test) {
         test.expect(1);
-        var smsru;
 
         test.throws(function () {
-            smsru = new Smsru();
-        });
+            new Smsru();
+        }, Error);
 
         test.done();
     },
