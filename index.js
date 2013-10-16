@@ -52,7 +52,11 @@ var Smsru = (function () {
                 }
             }
         } else {
-            _param = require(path.resolve(param));
+            try {
+                _param = require(path.resolve(param));
+            } catch (e) {
+                _param = {};
+            }
         }
 
         this.param = function (key) {

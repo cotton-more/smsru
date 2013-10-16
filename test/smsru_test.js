@@ -68,11 +68,18 @@ exports['url for test'] = {
 
 exports['testing constructor'] = {
     'no args': function (test) {
-        test.expect(1);
+        var smsru = new Smsru();
 
-        test.throws(function () {
-            new Smsru();
-        }, TypeError);
+        test.deepEqual(smsru.param(), {});
+
+        test.done();
+    },
+    'no module': function (test) {
+        var smsru = new Smsru('./foobar');
+        test.deepEqual(smsru.param(), {});
+
+        smsru = new Smsru('./test/smsrurc');
+        test.deepEqual(smsru.param(), {});
 
         test.done();
     },
