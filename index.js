@@ -4,19 +4,11 @@ var request = require('request');
 
 var Smsru = (function () {
     var hostname = 'sms.ru';
-    var api = {
-        'SEND': 'sms/send',
-        'COST': 'sms/cost',
-        'BALANCE': 'my/balance',
-        'LIMIT': 'my/limit',
-        'TOKEN': 'auth/get_token',
-        'CHECK': 'auth/check'
-    };
     var authAllowed = [ 'api_id', 'password' ];
     var defaultAuthType = 'api_id';
 
     var responseCode = {
-        'SEND': {
+        'sms/send': {
             '100': 'Сообщение принято к отправке.',
             '200': 'Неправильный api_id',
             '201': 'Не хватает средств на лицевом счету',
@@ -39,6 +31,23 @@ var Smsru = (function () {
         }
     };
 
+    function _request(urlObj, callback) {
+        if ('undefined' === typeof callback) {
+            callback = function () {};
+        }
+
+        request(url.format(urlObj), function (error, response, body) {
+            if (null === error) {
+                var data = body.split( "\n" );
+                if ('100' !== data[0]) {
+                    error = responseCode[urlObj.pathname][data[0]];
+                    body = null;
+                }
+            }
+
+            callback( error, body );
+        });
+    }
 
     function Smsru(param) {
         var _param = {};
@@ -103,6 +112,19 @@ var Smsru = (function () {
         return this;
     }
 
+    Smsru.prototype.limit = function (callback) {
+        var urlObj = this.getUrl( 'my/limit' );
+
+        _request(urlObj, callback);
+
+    };
+
+    Smsru.prototype.balance = function (callback) {
+        var urlObj = this.getUrl( 'my/balance' );
+
+        _request( urlObj, callback );
+    };
+
     Smsru.prototype.send = function (text, to, callback) {
         if (null == callback) {
             if ("function" === typeof to) {
@@ -113,22 +135,12 @@ var Smsru = (function () {
             }
         }
 
-        var _url = this.getUrl( 'SEND' );
+        var urlObj = this.getUrl( 'sms/send' );
 
-        _url['query']['text'] = text;
-        _url['query']['to'] = to || this.param( 'to' );
+        urlObj['query']['text'] = text;
+        urlObj['query']['to'] = to || this.param( 'to' );
 
-        request(url.format(_url), function (error, response, body) {
-            if (null === error) {
-                var data = body.split( "\n" );
-                if ('100' !== data[0]) {
-                    error = responseCode['SEND'][data[0]];
-                    body = null;
-                }
-            }
-
-            callback( error, body );
-        });
+        _request( urlObj, callback );
     };
 
     Smsru.prototype.getAuth = function () {
@@ -155,7 +167,7 @@ var Smsru = (function () {
         return {
             protocol: 'http',
             hostname: hostname,
-            pathname: api[command],
+            pathname: command,
             query: query
         };
     };

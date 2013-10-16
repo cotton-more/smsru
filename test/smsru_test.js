@@ -142,7 +142,7 @@ exports['test getting url'] = {
             'api_id': api_id
         });
 
-        var _url = url.format(smsru.getUrl('SEND'));
+        var _url = url.format(smsru.getUrl('sms/send'));
 
         t.equal(_url, 'http://sms.ru/sms/send?api_id='+api_id);
 
@@ -154,7 +154,7 @@ exports['test getting url'] = {
             'login': 'foo'
         });
 
-        t.deepEqual(smsru.getUrl('SEND').query, smsru.getAuth());
+        t.deepEqual(smsru.getUrl('sms/send').query, smsru.getAuth());
 
         t.done();
     }
