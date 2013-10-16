@@ -37,19 +37,6 @@ exports['send request'] = {
 
             t.done();
         });
-    },
-    'using real api_id': function (t) {
-        t.expect(1);
-
-        var smsru = new Smsru('../smsru.json');
-
-        smsru.test(1).send( 'text', function (error, body) {
-            var data = body.split( "\n" );
-
-            t.equal( data[0], '100' );
-
-            t.done();
-        });
     }
 };
 
