@@ -72,7 +72,7 @@ exports['testing constructor'] = {
 
         test.throws(function () {
             new Smsru();
-        }, Error);
+        }, TypeError);
 
         test.done();
     },
