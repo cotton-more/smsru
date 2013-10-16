@@ -1,4 +1,4 @@
-# smsru [![Build Status](https://secure.travis-ci.org/inikulin/smsru.png?branch=master)](http://travis-ci.org/inikulin/smsru)
+# smsru [![Build Status](https://secure.travis-ci.org/vansanblch/smsru.png?branch=master)](http://travis-ci.org/vansanblch/smsru)
 
 The best project ever.
 
