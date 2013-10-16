@@ -7,7 +7,9 @@ Install the module with: `npm install smsru`
 
 ```javascript
 var Smsru = require('smsru');
-var smsru = new Smsru();
+var smsru = new Smsru({
+    api_id: '123-45-67890'
+});
 
 smsru.send('text', 'recipient', function (error, body) {
     var data;
