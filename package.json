@@ -1,6 +1,6 @@
 {
   "name": "smsru",
-  "description": "The best project ever.",
+  "description": "Work with sms.ru API",
   "version": "0.1.0",
   "homepage": "https://github.com/vansanblch/smsru",
   "author": {
