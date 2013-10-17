@@ -20,16 +20,31 @@ smsru.send('text', 'recipient', function (error, body) {
 });
 ```
 
-## Documentation
-_(Coming soon)_
-
 ## Examples
-_(Coming soon)_
+
+Include module:
+```js
+// include module
+var Smsru = require('smsru');
+```
+
+Parameters for authentication could be passed as an object:
+```js
+var smsru = new Smsru({
+    login: '71231234567',
+    password: 'foobar'
+});
+```
+or as path to a json file:
+```js
+var smsru = new Smsru('./smsru.json');
+```
 
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+ * 2013-10-17   v0.1.0  Initial release. Main functionality
 
 ## License
 Copyright (c) 2013 Ivan Nikulin  
